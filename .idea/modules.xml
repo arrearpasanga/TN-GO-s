@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/TnGos.iml" filepath="$PROJECT_DIR$/TnGos.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Tn-Go-s.iml" filepath="$PROJECT_DIR$/Tn-Go-s.iml" />
+      <module fileurl="file://D:\projects\Tn-Go-s\TnGos.iml" filepath="D:\projects\Tn-Go-s\TnGos.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://D:\projects\Tn-Go-s\app\app.iml" filepath="D:\projects\Tn-Go-s\app\app.iml" />
     </modules>
   </component>
 </project>

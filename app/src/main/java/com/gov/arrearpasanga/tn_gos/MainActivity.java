@@ -1,10 +1,11 @@
 package com.gov.arrearpasanga.tn_gos;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,18 +15,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
+/*
+* Created by
+* Joan Louji S
+* */
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    TextView textView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Content Main");
         setSupportActionBar(toolbar);
-
+        getSupportActionBar().setTitle(getTitle());
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -47,33 +49,44 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-
-
+    //Navigation Item Click listener---Transcation for pages is done here
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
            int id = item.getItemId();
-            Class fragmentclass;
+        android.support.v4.app.Fragment fragment=null;
         if (id == R.id.nav_favorite) {
-
-        } else if (id == R.id.History) {
-            Toast.makeText(getApplicationContext(),"History",Toast.LENGTH_LONG).show();
-        } else if (id == R.id.Downloads) {
-            Toast.makeText(getApplicationContext(),"Downloads",Toast.LENGTH_LONG).show();
-        } else if (id == R.id.nav_feedback) {
+            fragment=new Favorite();
+         }
+        else if (id == R.id.History) {
+            fragment=new History();
+         }
+        else if (id == R.id.Downloads) {
+             fragment=new Downloads();
+         }
+        else if (id == R.id.nav_feedback) {
            emailshare();
-        } else if (id == R.id.nav_about) {
-            Toast.makeText(getApplicationContext(),"About",Toast.LENGTH_LONG).show();
+        }
+        else if (id == R.id.nav_about) {
+            fragment=new About();
+         }
+        else if (id == R.id.settings) {
+            fragment=new Settings();
 
-        } else if (id == R.id.settings) {
+        }
 
-            // Toast.makeText(getApplicationContext(),"Settings",Toast.LENGTH_LONG).show();
+        if(fragment!=null){
+                FragmentManager fragmentManager=getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment1,fragment);
+                fragmentTransaction.commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+    //Intent to Feedback page-- intents to email
     public void emailshare(){
         Intent intent=new Intent(Intent.ACTION_SEND);
         intent.setData(Uri.parse("Email"));
@@ -83,9 +96,9 @@ public class MainActivity extends AppCompatActivity
         Intent chooser=Intent.createChooser(intent,"Launch Email");
         startActivity(chooser);
     }
-
-
-    public void mymethod(View view) {
+    //Intent to feedback page-- intents to email
+    public void mymethod(View view)
+    {
     emailshare();
     }
 }
